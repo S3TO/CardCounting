@@ -45,7 +45,7 @@ namespace CardCount
                 case 13: valueN = "13"; break;
                 default: break;
             }
-            textureName = "c01";
+            textureName = suitN+valueN;
         }
         public override void Update(float deltaTime)
         {

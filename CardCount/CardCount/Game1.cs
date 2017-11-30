@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 
 namespace CardCount
@@ -18,8 +19,8 @@ namespace CardCount
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferHeight = 768;
-            graphics.PreferredBackBufferWidth = 1063;
+            graphics.PreferredBackBufferHeight = 1000;
+            graphics.PreferredBackBufferWidth = 2000;
         }
 
         /// <summary>
@@ -28,6 +29,23 @@ namespace CardCount
         /// related content.  Calling base.Initialize will enumerate through any components
         /// and initialize them as well.
         /// </summary>
+        protected void Shuffle()
+        {
+            Card temp;
+            int m, n;
+            Random rand = new Random();
+            for(int i = 0; i < 10000; i++)
+            {
+                m = rand.Next(0, 51) + 1;
+                n = rand.Next(0, 51) + 1;
+                if (m != n)
+                {
+                    temp = deck[m];
+                    deck[m].position = deck[n].position;
+                    deck[n].position = temp.position;
+                }
+            }
+        }
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
@@ -49,7 +67,7 @@ namespace CardCount
                 {
                     Card temp = new Card(i, j, this);
                     temp.LoadContent();
-                    temp.position = new Vector2(0+j*768,0+i*1063);
+                    temp.position = new Vector2((j*153)-153,(i*212)-212);
                     deck.Add(temp);
                 }
             }
@@ -79,7 +97,7 @@ namespace CardCount
                 Exit();
 
             // TODO: Add your update logic here
-
+            
             base.Update(gameTime);
         }
 
@@ -94,6 +112,10 @@ namespace CardCount
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             card.Draw(spriteBatch);
+            foreach(Card c in deck)
+            {
+                c.Draw(spriteBatch);
+            }
             spriteBatch.End();
             base.Draw(gameTime);
         }
