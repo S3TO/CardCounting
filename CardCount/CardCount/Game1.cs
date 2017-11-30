@@ -41,8 +41,8 @@ namespace CardCount
                 if (m != n)
                 {
                     temp = deck[m];
-                    deck[m].position = deck[n].position;
-                    deck[n].position = temp.position;
+                    deck[m] = deck[n];
+                    deck[n] = temp;
                 }
             }
         }
