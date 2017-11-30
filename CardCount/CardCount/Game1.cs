@@ -11,10 +11,15 @@ namespace CardCount
     /// </summary>
     public class Game1 : Game
     {
+        Vector2 dealerPosition = new Vector2(800,100);
+        Vector2 handPosition = new Vector2(800,600);
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         List<Card> deck = new List<Card>();
-        Card card;
+        List<Card> playerHand = new List<Card>();
+        List<Card> dealer = new List<Card>();
+        int bank = 500;
+        bool start = true;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -22,7 +27,34 @@ namespace CardCount
             graphics.PreferredBackBufferHeight = 1000;
             graphics.PreferredBackBufferWidth = 2000;
         }
+        public void Deal()
+        {
+            Card temp;
+            for(int i = 1; i < 5; i++)
+            {
+                temp = deck[i - 1];
+                if (i % 2 == 0)
+                {
+                    dealer.Add(temp);
+                    
+                }
+                else
+                {
+                    playerHand.Add(temp);
+                }
+                deck.RemoveAt(i - 1);
+            }
+            foreach (Card c in playerHand)
+            {
+                c.position = handPosition;
+            }
+            foreach (Card c in dealer)
+            {
+                c.position = dealerPosition;
+            }
 
+            start = false;
+        }
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -67,13 +99,11 @@ namespace CardCount
                 {
                     Card temp = new Card(i, j, this);
                     temp.LoadContent();
-                    temp.position = new Vector2((j*153)-153,(i*212)-212);
+                    //temp.position = new Vector2((j*153)-153,(i*212)-212);
+                    temp.position = new Vector2(1000, 400);
                     deck.Add(temp);
                 }
             }
-            card = new Card(1, 1, this);
-            card.LoadContent();
-            card.position = new Vector2(0, 0);
             // TODO: use this.Content to load your game content here
         }
 
@@ -97,7 +127,10 @@ namespace CardCount
                 Exit();
 
             // TODO: Add your update logic here
-            
+            if(start == true)
+            {
+                Deal();
+            }
             base.Update(gameTime);
         }
 
@@ -111,7 +144,6 @@ namespace CardCount
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            card.Draw(spriteBatch);
             foreach(Card c in deck)
             {
                 c.Draw(spriteBatch);

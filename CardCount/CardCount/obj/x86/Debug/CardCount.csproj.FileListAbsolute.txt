@@ -150,3 +150,4 @@ C:\Users\wang3\Documents\GitHub\CardCounting\CardCount\CardCount\obj\x86\Debug\C
 C:\Users\wang3\Documents\GitHub\CardCounting\CardCount\CardCount\obj\x86\Debug\CardCount.csproj.CoreCompileInputs.cache
 C:\Users\wang3\Documents\GitHub\CardCounting\CardCount\CardCount\obj\x86\Debug\CardCount.exe
 C:\Users\wang3\Documents\GitHub\CardCounting\CardCount\CardCount\obj\x86\Debug\CardCount.pdb
+C:\Users\wang3\Documents\GitHub\CardCounting\CardCount\CardCount\bin\Windows\x86\Debug\Content\back1.xnb

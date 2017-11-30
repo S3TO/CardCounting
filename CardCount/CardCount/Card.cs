@@ -10,11 +10,19 @@ using Microsoft.Xna.Framework.Input;
 
 namespace CardCount
 {
+    public enum face
+    {
+        up = -1,
+        down = 1
+    }
+
     class Card : GameObject
     {
         protected string suitN;
         protected string valueN;
+        protected string backN = "back1";
         public int value;
+        public face face = (face)1;
         public int suit;// 1 = clubs, 2 = diamonds, 3 = hearts, 4 = spades
         public Card(int suit, int value, Game myGame) : base(myGame)
         {
@@ -46,6 +54,20 @@ namespace CardCount
                 default: break;
             }
             textureName = suitN+valueN;
+            //textureName = backN;
+        }
+        public void flip()
+        {
+            if(face == (face)1)
+            {
+                face = (face) - 1;
+                textureName = suitN + valueN;
+            }
+            else
+            {
+                face = (face)1;
+                textureName = backN;
+            }
         }
         public override void Update(float deltaTime)
         {
@@ -53,11 +75,17 @@ namespace CardCount
         }
         public override void Draw(SpriteBatch batch)
         {
-            if (texture != null)
+            if (textureName == backN)
+            {
+                Vector2 drawPosition = position;
+                batch.Draw(texture, drawPosition, null, Color.White, 0f, Vector2.Zero, new Vector2(2.14f,2.25f), SpriteEffects.None, 0f);
+            }
+            else if (texture != null)
             {
                 Vector2 drawPosition = position;
                 batch.Draw(texture, drawPosition, null, Color.White, 0f, Vector2.Zero, 0.2f, SpriteEffects.None, 0f);
             }
+            
         }
     }
 }
