@@ -56,7 +56,7 @@ namespace CardCount
             if (texture != null)
             {
                 Vector2 drawPosition = position;
-                batch.Draw(texture, drawPosition, Color.White);
+                batch.Draw(texture, drawPosition, null, Color.White, 0f, Vector2.Zero, 0.2f, SpriteEffects.None, 0f);
             }
         }
     }
