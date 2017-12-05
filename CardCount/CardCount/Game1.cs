@@ -35,8 +35,7 @@ namespace CardCount
                 temp = deck[i - 1];
                 if (i % 2 == 0)
                 {
-                    dealer.Add(temp);
-                    
+                    dealer.Add(temp);                   
                 }
                 else
                 {
@@ -61,7 +60,7 @@ namespace CardCount
         /// related content.  Calling base.Initialize will enumerate through any components
         /// and initialize them as well.
         /// </summary>
-        protected void Shuffle()
+ 
         {
             Card temp;
             int m, n;
