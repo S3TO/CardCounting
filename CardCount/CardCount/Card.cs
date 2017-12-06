@@ -12,12 +12,13 @@ namespace CardCount
 {
     public enum face
     {
-        up = -1,
-        down = 1
+        up = 1,
+        down = -1
     }
 
     class Card : GameObject
     {
+        
         protected string suitN;
         protected string valueN;
         protected string backN = "back1";
@@ -53,8 +54,8 @@ namespace CardCount
                 case 13: valueN = "13"; break;
                 default: break;
             }
-            textureName = suitN+valueN;
-            //textureName = backN;
+            //textureName = suitN+valueN;
+            textureName = backN;
         }
         public void flip()
         {
@@ -62,30 +63,34 @@ namespace CardCount
             {
                 face = (face) - 1;
                 textureName = suitN + valueN;
+                
             }
             else
             {
                 face = (face)1;
                 textureName = backN;
             }
+            texture = game.Content.Load<Texture2D>(textureName);
         }
         public override void Update(float deltaTime)
         {
             base.Update(deltaTime);
+            
+
         }
         public override void Draw(SpriteBatch batch)
         {
+            Vector2 drawPosition = position;
             if (textureName == backN)
             {
-                Vector2 drawPosition = position;
-                batch.Draw(texture, drawPosition, null, Color.White, 0f, Vector2.Zero, new Vector2(2.14f,2.25f), SpriteEffects.None, 0f);
+                
+                batch.Draw(texture, drawPosition, null, Color.White, 0f, Vector2.Zero, new Vector2(2.14f, 2.25f), SpriteEffects.None, 0f);
             }
             else if (texture != null)
             {
-                Vector2 drawPosition = position;
+               
                 batch.Draw(texture, drawPosition, null, Color.White, 0f, Vector2.Zero, 0.2f, SpriteEffects.None, 0f);
             }
-            
         }
     }
 }

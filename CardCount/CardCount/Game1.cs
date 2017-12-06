@@ -18,14 +18,23 @@ namespace CardCount
         List<Card> deck = new List<Card>();
         List<Card> playerHand = new List<Card>();
         List<Card> dealer = new List<Card>();
+        Background Background;
+        Chip chip;
         int bank = 500;
         bool start = true;
+
+        //pause
+        bool paused = false;
+        Texture2D pausedTexture;
+        Rectangle pausedRectangle;
+        Button btnPlay, btnQuit;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferHeight = 1000;
-            graphics.PreferredBackBufferWidth = 2000;
+            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = 1920;
         }
         public void Deal()
         {
@@ -35,7 +44,8 @@ namespace CardCount
                 temp = deck[i - 1];
                 if (i % 2 == 0)
                 {
-                    dealer.Add(temp);                   
+                    dealer.Add(temp);
+                    
                 }
                 else
                 {
@@ -60,7 +70,7 @@ namespace CardCount
         /// related content.  Calling base.Initialize will enumerate through any components
         /// and initialize them as well.
         /// </summary>
- 
+        protected void Shuffle()
         {
             Card temp;
             int m, n;
@@ -92,6 +102,11 @@ namespace CardCount
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            IsMouseVisible = true;
+            Background = new Background(this);
+            Background.LoadContent();
+            Background.position = new Vector2(0, 0);
             for(int i = 1;i < 5; i++)
             {
                 for(int j = 1; j < 14; j++)
@@ -99,10 +114,17 @@ namespace CardCount
                     Card temp = new Card(i, j, this);
                     temp.LoadContent();
                     //temp.position = new Vector2((j*153)-153,(i*212)-212);
-                    temp.position = new Vector2(1000, 400);
+                    temp.position = new Vector2(1500, 200);
                     deck.Add(temp);
                 }
             }
+            //pause
+            pausedTexture = Content.Load<Texture2D>("Paused0");
+            pausedRectangle = new Rectangle(0, 0, pausedTexture.Width, pausedTexture.Height);
+            btnPlay = new Button();
+            btnPlay.Load(Content.Load<Texture2D>("Play"), new Vector2(900, 1000));
+            btnQuit = new Button();
+            btnQuit.Load(Content.Load<Texture2D>("Quit"), new Vector2(1050, 1000));
             // TODO: use this.Content to load your game content here
         }
 
@@ -115,6 +137,7 @@ namespace CardCount
             // TODO: Unload any non ContentManager content here
         }
 
+
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
@@ -122,6 +145,36 @@ namespace CardCount
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            MouseState mouse = Mouse.GetState();
+            if (!paused)
+            {
+                //all updates go in here i believe, ask prof boyd
+                if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                {
+                    paused = true;
+                    btnPlay.isClicked = false;
+                }
+                //TEST FUNCTION FOR FLIP
+                if (Keyboard.GetState().IsKeyDown(Keys.F))
+                {
+                    foreach(Card c in deck)
+                    {
+                        c.flip();
+                    }
+                }
+                //player.update
+            }
+            else if (paused)
+            {
+                if (btnPlay.isClicked)
+                    paused = false;
+                if (btnQuit.isClicked)
+                    Exit();
+
+                btnPlay.Update(mouse);
+                btnQuit.Update(mouse);
+            }
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -140,13 +193,23 @@ namespace CardCount
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            foreach(Card c in deck)
+            Background.Draw(spriteBatch);
+            foreach (Card c in deck)
             {
                 c.Draw(spriteBatch);
             }
+
+            //Paused - should always be at the bottom of Draw
+            if (paused)
+            {
+                spriteBatch.Draw(pausedTexture, pausedRectangle, Color.White);
+                btnPlay.Draw(spriteBatch);
+                btnQuit.Draw(spriteBatch);
+            }
+
             spriteBatch.End();
             base.Draw(gameTime);
         }

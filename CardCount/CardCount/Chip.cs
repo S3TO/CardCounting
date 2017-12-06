@@ -14,23 +14,28 @@ namespace CardCount
     {
         public float worth;
         public bool inPlay = false;
+        Rectangle rectangle;
         public Chip(float worth,Game myGame) : base(myGame)
         {
             this.worth = worth;
             switch (worth)
             {
                 case 2.5f: textureName = "2.5";break; 
-                case 5: textureName = "5"; break;
-                case 10: textureName = "10"; break;
-                case 25: textureName = "25";break;
-                case 50: textureName = "50"; break;
-                case 100: textureName = "100";break;
+                case 5: textureName = "Five"; break;
+                case 10: textureName = "Ten"; break;
+                case 25: textureName = "TwentyFive";break;
+                case 50: textureName = "Fifty"; break;
+                case 100: textureName = "Hundred";break;
                 default: break;
             }
         }
-        public override void Update(float deltaTime)
+        public void Update(float deltaTime,MouseState mouse)
         {
-            base.Update(deltaTime);
+                mouse = Mouse.GetState();
+                rectangle = new Rectangle((int)position.X, (int)position.Y,
+                    texture.Width, texture.Height);
+                Rectangle mouseRectangle = new Rectangle(mouse.X, mouse.Y, 15, 15);
+
         }
     }
 }
