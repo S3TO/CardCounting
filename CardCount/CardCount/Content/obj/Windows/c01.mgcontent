@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/xande/Documents/GitHub/CardCounting/CardCount/CardCount/Content/c01.png</SourceFile>
-  <SourceTime>2017-12-04T18:53:00.8247826-08:00</SourceTime>
-  <DestFile>C:/Users/xande/Documents/GitHub/CardCounting/CardCount/CardCount/Content/bin/Windows/c01.xnb</DestFile>
-  <DestTime>2017-12-04T18:53:24.1768858-08:00</DestTime>
+  <SourceFile>C:/Users/Cameron Wang/Documents/GitHub/CardCounting/CardCount/CardCount/Content/c01.png</SourceFile>
+  <SourceTime>2017-12-06T11:33:44.6795115-08:00</SourceTime>
+  <DestFile>C:/Users/Cameron Wang/Documents/GitHub/CardCounting/CardCount/CardCount/Content/bin/Windows/c01.xnb</DestFile>
+  <DestTime>2017-12-06T14:14:20.6401879-08:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T07:05:36-08:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
